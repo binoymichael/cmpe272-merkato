@@ -16,6 +16,7 @@ class CreateSellersTable extends Migration
         Schema::create('sellers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('owner');
             $table->string('all_products_api');
             $table->string('show_product_api');
             $table->timestamps();

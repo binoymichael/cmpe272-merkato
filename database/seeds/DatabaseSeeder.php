@@ -13,35 +13,40 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
     	DB::table('sellers')->insert([
-            'name' => 'aravinda',
+            'owner' => 'aravinda',
+            'name' => 'AirWind',
             'all_products_api' => '',
             'show_product_api' => '',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     	DB::table('sellers')->insert([
-            'name' => 'arun',
+            'owner' => 'arun',
+            'name' => 'Juranet',
             'all_products_api' => '',
             'show_product_api' => '',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     	DB::table('sellers')->insert([
-            'name' => 'binoy',
+            'owner' => 'binoy',
+            'name' => 'Fabposters',
+            'all_products_api' => 'http://fabposters.slashbin.in/api/products',
+            'show_product_api' => '',
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+    	DB::table('sellers')->insert([
+            'owner' => 'sunil',
+            'name' => 'Gargoos',
             'all_products_api' => '',
             'show_product_api' => '',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
             'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     	DB::table('sellers')->insert([
-            'name' => 'sunil',
-            'all_products_api' => '',
-            'show_product_api' => '',
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
-    	DB::table('sellers')->insert([
-            'name' => 'umang',
+            'owner' => 'umang',
+            'name' => 'GeekBabu',
             'all_products_api' => '',
             'show_product_api' => '',
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
