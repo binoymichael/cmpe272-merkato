@@ -6,12 +6,19 @@ use Illuminate\Http\Request;
 use App\Seller;
 use App\Product;
 use Carbon\Carbon;
+use Auth;
 
 class ProductsController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function recent()
+    {
+        $products = Auth::user()->products;
+        return view('products.recent', ['products' => $products]);
     }
 
 	public function show(Seller $seller, $product_id) 

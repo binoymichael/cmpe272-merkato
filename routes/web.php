@@ -31,3 +31,4 @@ Route::resource('sellers.products', 'ProductsController', ['only' => [
     'show'
 ]]);
 
+Route::get('/recent', 'ProductsController@recent');
