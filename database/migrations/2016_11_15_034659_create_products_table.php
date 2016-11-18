@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('seller_id')->unsigned();
             $table->integer('seller_product_id')->unsigned();
-            $table->integer('visited_count')->unsigned();
+            $table->integer('visited_count')->unsigned()->default(0);
             $table->timestamp('last_visited_at');
             $table->timestamps();
 
