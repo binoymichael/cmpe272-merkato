@@ -22,3 +22,12 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/redirect', 'SocialAuthController@redirect');
 Route::get('/callback', 'SocialAuthController@callback');
+
+Route::resource('sellers', 'SellersController', ['only' => [
+    'index', 'show'
+]]);
+
+Route::resource('sellers.products', 'ProductsController', ['only' => [
+    'show'
+]]);
+

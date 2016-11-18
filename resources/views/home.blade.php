@@ -20,7 +20,6 @@
                             <p>From <a href="/sellers/{{ $product['seller_id']}}">{{ $product['seller_name'] }}</a></p> 
                           </div>
                         </div>
-                    </a>
                     @endforeach
                 </div>
             </div>
