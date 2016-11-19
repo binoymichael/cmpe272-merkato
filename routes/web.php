@@ -32,3 +32,7 @@ Route::resource('sellers.products', 'ProductsController', ['only' => [
 ]]);
 
 Route::get('/recent', 'ProductsController@recent');
+
+Route::resource('sellers.products.reviews', 'ReviewsController', ['only' => [
+	'store'
+]]);
