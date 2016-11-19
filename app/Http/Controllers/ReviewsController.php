@@ -21,12 +21,11 @@ class ReviewsController extends Controller
         $user_id = \Auth::id();
 
         $product = Product::where([
-                'user_id' => $user_id,
                 'seller_id' => $seller->id,
                 'seller_product_id' => $seller_product_id
             ])->first();
 
-        $product_detail = ProductDetail::where(['product_id' => $product->id])->first();
+        $product_detail = ProductDetail::where(['user_id' => $user_id, 'product_id' => $product->id])->first();
         $product_detail->review_stars = $request->input('stars');
         $product_detail->review_details = trim($request->input('details'));
         $product_detail->save();
