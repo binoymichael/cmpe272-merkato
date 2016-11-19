@@ -14,7 +14,7 @@
                 <br/>
                 <br/>
                 Add Review
-                <form action="/sellers/{{$seller->id}}/products/{{$product_details['id']}}/reviews/" method="post">
+                <form action="/sellers/{{$seller->id}}/products/{{$product_details['id']}}/reviews" method="post">
             	  {{ csrf_field() }}
 				  <div class="form-group">
 				  	  <label>Rating</label>
