@@ -46,7 +46,7 @@ class ProductsController extends Controller
             }
         }
 
-		return view('products.show', ['seller' => $seller, 'product' => $product, 'product_details' => $product_details]);
+		return view('products.show', ['seller' => $seller, 'product' => $product, 'product_details' => $product_details])->render();
 	}
 }
 
