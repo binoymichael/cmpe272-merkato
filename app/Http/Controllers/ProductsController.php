@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Seller;
 use App\Product;
+use App\ProductDetail;
 use Carbon\Carbon;
 use Auth;
 
@@ -21,10 +22,10 @@ class ProductsController extends Controller
         return view('products.recent', ['products' => $products]);
     }
 
-	public function show(Seller $seller, $product_id) 
+	public function show(Seller $seller, $seller_product_id) 
 	{
         $client = new \GuzzleHttp\Client();
-        $api = str_replace(['%product_id%'], [$product_id], $seller->show_product_api);
+        $api = str_replace(['%product_id%'], [$seller_product_id], $seller->show_product_api);
         $product = [];
         if (!empty($api)) {
             $res = $client->request('GET', $api);
@@ -35,18 +36,24 @@ class ProductsController extends Controller
                 $product = Product::firstOrCreate([
                         'user_id' => $user_id,
                         'seller_id' => $seller->id,
-                        'seller_product_id' => $product_id
+                        'seller_product_id' => $seller_product_id
                     ]);
-                $product->visited_count = $product->visited_count + 1;
-                $product->last_visited_at = Carbon::now();
                 $product->cached_api_response = $api_response;
                 $product->save();
+
+                $product_detail = ProductDetail::firstOrCreate([
+                        'user_id' => $user_id,
+                        'product_id' => $product->id
+                    ]);
+                $product_detail->visited_count = $product->visited_count + 1;
+                $product_detail->last_visited_at = Carbon::now();
+                $product_detail->save();
 
                 $product_details = json_decode($api_response, true);
             }
         }
 
-		return view('products.show', ['seller' => $seller, 'product' => $product, 'product_details' => $product_details])->render();
+		return view('products.show', ['seller' => $seller, 'product' => $product, 'product_detail' => $product_detail]);
 	}
 }
 
