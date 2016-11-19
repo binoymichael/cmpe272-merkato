@@ -30,6 +30,7 @@ class ProductsController extends Controller
             $res = $client->request('GET', $api);
             if ($res->getStatusCode() == 200) {
                 $user_id = \Auth::id();
+                $api_response = $res->getBody();
 
                 $product = Product::firstOrCreate([
                         'user_id' => $user_id,
@@ -38,13 +39,14 @@ class ProductsController extends Controller
                     ]);
                 $product->visited_count = $product->visited_count + 1;
                 $product->last_visited_at = Carbon::now();
+                $product->cached_api_response = $api_response;
                 $product->save();
 
-                $product_details = json_decode($res->getBody(), true);
+                $product_details = json_decode($api_response, true);
             }
         }
 
-		return view('products.show', ['seller' => $seller, 'product' => $product_details]);
+		return view('products.show', ['seller' => $seller, 'product' => $product, 'product_details' => $product_details]);
 	}
 }
 
