@@ -30,6 +30,9 @@ class ReviewsController extends Controller
         $product->save();
         $product_details = json_decode($product->cached_api_response, true);
 
+		$request->session()->flash('alert_message', 'Review added!');
+		$request->session()->flash('alert_class', 'success');
+
 		return view('products.show', ['seller' => $seller, 'product' => $product, 'product_details' => $product_details]);
 	}
 }

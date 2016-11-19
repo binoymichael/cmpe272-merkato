@@ -79,6 +79,16 @@
             </div>
         </nav>
 
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                @if ( Session::has('alert_message'))
+                    <div class="alert alert-{{ Session::pull('alert_class') }} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
+                         {{ Session::pull('alert_message') }}
+                    </div>
+                @endif           
+           </div>
+        </div>
         @yield('content')
     </div>
 
