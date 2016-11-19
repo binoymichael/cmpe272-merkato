@@ -34,7 +34,6 @@ class ProductsController extends Controller
                 $api_response = $res->getBody();
 
                 $product = Product::firstOrCreate([
-                        'user_id' => $user_id,
                         'seller_id' => $seller->id,
                         'seller_product_id' => $seller_product_id
                     ]);
@@ -45,7 +44,7 @@ class ProductsController extends Controller
                         'user_id' => $user_id,
                         'product_id' => $product->id
                     ]);
-                $product_detail->visited_count = $product->visited_count + 1;
+                $product_detail->visited_count = $product_detail->visited_count + 1;
                 $product_detail->last_visited_at = Carbon::now();
                 $product_detail->save();
 
