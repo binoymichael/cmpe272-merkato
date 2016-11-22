@@ -15,7 +15,8 @@
                           </a>
                           <div class="card-container">
                         <a href="/sellers/{{$product['seller_id']}}/products/{{$product['id']}}">
-                            <h4><b>{{ $product['name'] }}</b></h4> 
+                            <h4>
+                            <b>{{ (strlen($product['name']) <= 18 ? $product['name'] : substr($product['name'], 0, 18) . " ...") }}</b></h4> 
                         </a>
                             <p>From <a href="/sellers/{{ $product['seller_id']}}">{{ $product['seller_name'] }}</a></p> 
                           </div>
