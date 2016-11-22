@@ -47,6 +47,16 @@ function addProduct(product) {
 	$card_container.append($sellerContainer);
 	$card.append($imageLink);
 	$card.append($card_container);
+
+	// Random placement of product tiles
+	// var $list = $("#home-panel .card");
+	// var pos = Math.floor(Math.random() * ($list.length + 1)) - 1;
+	// if(pos != -1){
+	//   $list.eq(pos).after($card);
+	// } else{
+	//   $('#home-panel').append($card);
+	// }
+
 	$('#home-panel').append($card);
 }
 
