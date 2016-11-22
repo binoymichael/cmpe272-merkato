@@ -24,23 +24,34 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $client = new \GuzzleHttp\Client();
         $sellers = Seller::all();
+        $seller_ids = array_pluck($sellers, 'id');
+        shuffle($seller_ids);
+        $seller_ids = implode(",", $seller_ids);
+        return view('home', ['seller_ids' => $seller_ids]);
+    }
+
+    public function products(Request $request)
+    {
+        $client = new \GuzzleHttp\Client();
         $products = [];
-        foreach ($sellers as $seller) {
-            $api = $seller->all_products_api;
-            if (!empty($api)) {
-                $res = $client->request('GET', $api);
-                if ($res->getStatusCode() == 200) {
-                    $seller_products = json_decode($res->getBody(), true);
-                    foreach($seller_products as $key => $value) {
-                        $merged = collect($value)->merge(['seller_id' => $seller->id, 'seller_name' => $seller->name]);
-                        array_push($products, $merged);
-                    }
+
+        $seller_ids = explode(",", $request->seller_ids);
+        $current_seller_id = array_shift($seller_ids);
+        $seller = Seller::find($current_seller_id);
+
+        $api = $seller->all_products_api;
+        if (!empty($api)) {
+            $res = $client->request('GET', $api);
+            if ($res->getStatusCode() == 200) {
+                $seller_products = json_decode($res->getBody(), true);
+                foreach($seller_products as $key => $value) {
+                    $merged = collect($value)->merge(['seller_id' => $seller->id, 'seller_name' => $seller->name]);
+                    array_push($products, $merged);
                 }
             }
         }
-        shuffle($products);
-        return view('home', ['products' => $products]);
+
+        return response()->json(['seller_ids' => $seller_ids, 'products' => $products]);
     }
 }
