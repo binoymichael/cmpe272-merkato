@@ -13,6 +13,16 @@
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </div>
                         </div>
+                        <div class="pull-right">
+                            <label>Sort By  </label>
+                            <select id="home-sort" class="form-control">
+                              <option value="">-</option>
+                              <option value="priceAsc">Price (Low to High)</option>
+                              <option value="priceDesc">Price (High to Low)</option>
+                              <option value="rating">Avg Ratings</option>
+                              <option value="popularity">Popularity</option>
+                            </select>
+                        </div>
                     </form>
                 </div>
 

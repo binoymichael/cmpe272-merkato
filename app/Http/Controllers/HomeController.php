@@ -46,7 +46,8 @@ class HomeController extends Controller
             if ($res->getStatusCode() == 200) {
                 $seller_products = json_decode($res->getBody(), true);
                 foreach($seller_products as $key => $value) {
-                    $merged = collect($value)->merge(['seller_id' => $seller->id, 'seller_name' => $seller->name]);
+                    $price = (int)str_replace(["$"], [""], $value['price']) * 100;
+                    $merged = collect($value)->merge(['seller_id' => $seller->id, 'seller_name' => $seller->name, 'price' => $price]);
                     array_push($products, $merged);
                 }
             }
