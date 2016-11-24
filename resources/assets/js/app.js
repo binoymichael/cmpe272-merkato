@@ -25,6 +25,10 @@ function urldecode(url) {
   return decodeURIComponent(url.replace(/\+/g, ' '));
 }
 
+function formattedPrice(value) {
+	return ("$" + (value/100).toFixed(2));
+}
+
 function addProduct(product) {
 	console.log('hello');
 	var $card = $('<div>', {'class': 'card'});
@@ -40,14 +44,18 @@ function addProduct(product) {
 	var $productLink = $('<a>')
 					.attr('href', '/sellers/' + product.seller_id + '/products/' + product.id)
 					.html('<h4><b>' + $product_name + '</b></h4>');
-	var $sellerContainer = $('<p>').html('From ');
+	var $bottomRow = $('<div>')
+	var $priceContainer = $('<p class="pull-left">').html('<b>' + formattedPrice(product.price) + '</b>');
+	var $sellerContainer = $('<p class="pull-right">').html('From ');
 	var $sellerLink = $('<a>')
 					  .attr('href', '/sellers/' + product.seller_id)
 					  .html(product.seller_name);
 
 	$sellerContainer.append($sellerLink);
 	$card_container.append($productLink);
-	$card_container.append($sellerContainer);
+	$bottomRow.append($priceContainer);
+	$bottomRow.append($sellerContainer);
+	$card_container.append($bottomRow);
 	$card.append($imageLink);
 	$card.append($card_container);
 
@@ -78,7 +86,7 @@ function getProducts(seller_ids) {
 	});
 }
 
-function searchProducts() {
+function filterProducts() {
 	var searchString = $searchBox.val();
 	var filtered_products;
 	if (searchString === "") {
@@ -89,12 +97,23 @@ function searchProducts() {
 		});
 	}
 
+	var sortOption = $sortBox.val();
+	if (sortOption !== "") {
+		if (sortOption === "priceAsc") {
+			filtered_products = _.sortBy(filtered_products, "price");
+		} else if (sortOption == "priceDesc") {
+			filtered_products = _.reverse(_.sortBy(filtered_products, "price"));
+		}
+	}
+
 	$('#home-panel').html('');
+	console.log(filtered_products);
 	_.each(filtered_products, addProduct);
 }
 
 if ($("#home-panel").length) {
 	var seller_ids = $('#home-panel').data('seller-ids');
+	getProducts(seller_ids);
 	var $searchBox = $('#home-search');
 	$searchBox.keypress(function(event){
 	    if (event.keyCode === 10 || event.keyCode === 13) 
@@ -106,7 +125,9 @@ if ($("#home-panel").length) {
         if (t) { 
             clearTimeout(t); 
         } 
-        t = setTimeout(searchProducts, 500); 
+        t = setTimeout(filterProducts, 500); 
     }); 
-	getProducts(seller_ids);
+
+	var $sortBox = $('#home-sort');
+	$sortBox.on('change', filterProducts);
 }
