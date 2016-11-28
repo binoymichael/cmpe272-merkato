@@ -52,12 +52,12 @@ class HomeController extends Controller
                     $price = (int)str_replace(["$"], [""], $value['price']) * 100;
 
                     $seller_full_product_id = $seller->id . ":" . $value['id'];
-                    $product_details = $product_details_data->get($seller_full_product_id, null);
+                    $product_details = collect($product_details_data)->get($seller_full_product_id, null);
                     $visited_count = 0;
                     $avg_review_stars = 0;
                     if ($product_details != null) {
                         $visited_count = (int)(collect($product_details)->get('visited_count', 0));
-                        $avg_review_stars = floor((int)(collect($product_details)->get('avg_review_stars', 0)) * 1000);
+                        $avg_review_stars = floor((int)(collect($product_details)->get('avg_review_stars', 0) * 1000));
                     }
 
                     $merged = collect($value)->merge(['seller_id' => $seller->id, 
