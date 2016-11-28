@@ -103,7 +103,7 @@ function filterProducts() {
 		} else if (sortOption == "priceDesc") {
 			filtered_products = _.reverse(_.sortBy(filtered_products, "price"));
     } else if (sortOption == "rating") {
-			filtered_products = _.reverse(_.sortBy(filtered_products, "avg_rating));
+			filtered_products = _.reverse(_.sortBy(filtered_products, "avg_rating"));
     } else if (sortOption == "popularity") {
 			filtered_products = _.reverse(_.sortBy(filtered_products, "visited_count"));
     }
