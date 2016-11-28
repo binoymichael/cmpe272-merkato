@@ -48,11 +48,11 @@ class ProductsController extends Controller
                 $product_detail->last_visited_at = Carbon::now();
                 $product_detail->save();
 
-                $product_details = json_decode($api_response, true);
+                $product_api_response = json_decode($api_response, true);
             }
         }
 
-		return view('products.show', ['seller' => $seller, 'product' => $product, 'product_detail' => $product_detail]);
+		return view('products.show', ['seller' => $seller, 'product_api_response' => $product_api_response, 'product_detail' => $product_detail]);
 	}
 }
 
