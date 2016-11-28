@@ -27,9 +27,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /**
-     * Get the comments for the blog post.
-     */
     public function products()
     {
         return $this->hasMany('App\Product');
