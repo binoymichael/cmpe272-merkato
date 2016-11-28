@@ -30,7 +30,6 @@ function formattedPrice(value) {
 }
 
 function addProduct(product) {
-	console.log('hello');
 	var $card = $('<div>', {'class': 'card'});
 	var $image = $('<img>')
 				 .attr('src', urldecode(product.image_url))
@@ -103,7 +102,11 @@ function filterProducts() {
 			filtered_products = _.sortBy(filtered_products, "price");
 		} else if (sortOption == "priceDesc") {
 			filtered_products = _.reverse(_.sortBy(filtered_products, "price"));
-		}
+    } else if (sortOption == "rating") {
+			filtered_products = _.reverse(_.sortBy(filtered_products, "avg_rating));
+    } else if (sortOption == "popularity") {
+			filtered_products = _.reverse(_.sortBy(filtered_products, "visited_count"));
+    }
 	}
 
 	$('#home-panel').html('');

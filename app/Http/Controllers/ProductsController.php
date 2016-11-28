@@ -13,7 +13,7 @@ class ProductsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     public function recent()
@@ -30,7 +30,7 @@ class ProductsController extends Controller
         if (!empty($api)) {
             $res = $client->request('GET', $api);
             if ($res->getStatusCode() == 200) {
-                $user_id = \Auth::id();
+                $user_id = (int)\Auth::id();
                 $api_response = $res->getBody();
 
                 $product = Product::firstOrCreate([
