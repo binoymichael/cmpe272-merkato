@@ -15,17 +15,29 @@ class Product extends Model
 
     public static function visited_counts()
     {
-        $data = \DB::table('products')
+        $visit_data = \DB::table('products')
         ->join('product_details', 'products.id', '=', 'product_details.product_id')
         ->select(\DB::raw("CONCAT(products.seller_id,':', products.seller_product_id) as seller_full_product_id,
-                           SUM(product_details.visited_count) as visited_count,
+                           SUM(product_details.visited_count) as visited_count
+                         "))
+        ->groupBy('products.seller_id', 'products.seller_product_id')
+        ->get();
+
+        $rating_data = \DB::table('products')
+        ->join('product_details', 'products.id', '=', 'product_details.product_id')
+        ->where('product_details.review_stars', '!=', 0)
+        ->select(\DB::raw("CONCAT(products.seller_id,':', products.seller_product_id) as seller_full_product_id,
                            AVG(product_details.review_stars) as avg_review_stars
                          "))
         ->groupBy('products.seller_id', 'products.seller_product_id')
         ->get();
 
-        $keyed = $data->keyBy('seller_full_product_id');
-        return $keyed;
+        $visit_keyed = $visit_data->keyBy('seller_full_product_id');
+        $rating_keyed = $rating_data->keyBy('seller_full_product_id');
+
+
+        $merged = array_merge_recursive($visit_keyed->toArray(), $rating_keyed->toArray());
+        return $merged;
     }
 
     public function product_details()
