@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 
 class OrdersController extends Controller
 {
@@ -16,33 +17,14 @@ class OrdersController extends Controller
          $this->middleware('auth');
     }
 
-    public function cart()
+    public function create()
     {
-        $user = \Auth::user();
-        $cart = $user->cart();
-        $products = json_decode($cart['details'], true);
-        dd($products);
+      return view('orders.create');
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
-        $user = \Auth::user();
-        $product_id = $request->input('product_id');
-
-        // There will one order with status as 'cart'
-        // Once the user checkouts this cart the order status will change to
-        // confirmed
-        $cart = $user->cart();
-        $products = json_decode($cart['details'], true);
-
-        if (!in_array($product_id, $products)) {
-          array_push($products, $product_id);
-          $cart->details = json_encode($products);
-          $cart->save();
-        }
-
-        return redirect('/cart');
+      return "Order Confirmed!";
     }
-
 }
 

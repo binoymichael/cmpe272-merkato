@@ -22,7 +22,7 @@
                           <p>{{ $product_api_response['quantity'] }} left in stock</p>
                           <p>{{ $product_api_response['description'] }}</p>
                           <br/>
-                          <form action="/order" method="post">
+                          <form action="/cart" method="post">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="product_id" value={{$product_detail->product_id}} />
                                 <button type="submit" class="btn btn-success">
