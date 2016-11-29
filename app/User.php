@@ -27,8 +27,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function products()
+    public function recent_products() 
     {
-        return $this->hasMany('App\Product');
+      return $this->product_details()
+                  ->with('product.seller')
+                  ->orderBy('product_details.last_visited_at', 'DESC')
+                  ->get();
+    }
+
+    public function product_details()
+    {
+        return $this->hasMany('App\ProductDetail');
     }
 }

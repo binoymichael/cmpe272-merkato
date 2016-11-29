@@ -13,13 +13,13 @@ class ProductsController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth')->except('show');
     }
 
     public function recent()
     {
-        $products = Auth::user()->products;
-        return view('products.recent', ['products' => $products]);
+      $products = Auth::user()->recent_products();
+      return view('products.recent', ['products' => $products->pluck('product')]);
     }
 
 	public function show(Seller $seller, $seller_product_id) 
