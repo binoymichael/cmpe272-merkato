@@ -33,6 +33,8 @@ Route::resource('sellers.products', 'ProductsController', ['only' => [
 ]]);
 
 Route::get('/recent', 'ProductsController@recent');
+Route::post('/order', 'OrdersController@create');
+Route::get('/cart', 'OrdersController@cart');
 
 Route::resource('sellers.products.reviews', 'ReviewsController', ['only' => [
 	'store'

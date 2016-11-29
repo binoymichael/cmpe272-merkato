@@ -17,9 +17,19 @@
                               setlocale(LC_MONETARY, 'en_US.UTF-8');
                              $price = money_format('%.2n', $price);
                           @endphp
+                          <p>From <a href="/sellers/{{$seller->id}}">{{ $seller->name }}</a></p>
                           <p>{{ $price }}</p>
                           <p>{{ $product_api_response['quantity'] }} left in stock</p>
                           <p>{{ $product_api_response['description'] }}</p>
+                          <br/>
+                          <form action="/order" method="post">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="product_id" value={{$product_detail->product_id}} />
+                                <button type="submit" class="btn btn-success">
+                                  <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                                  Add to Cart
+                                </button>
+                          </form>
                       </div>
                   </div> <!-- row -->
                   @if (Auth::check())

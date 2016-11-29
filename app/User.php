@@ -39,4 +39,25 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\ProductDetail');
     }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+  
+    public function cart()
+    {
+        $cart = $this->orders()->where('status', 'cart')->first();
+        if ($cart == null) {
+          $products = [];
+          $reference_number = str_random(10);
+          $details = json_encode($products);
+          $cart = $this->orders()->create([
+            'uuid' => $reference_number,
+            'status' => 'cart',
+            'details' => $details
+          ]);
+        }
+        return $cart;
+    }
 }
