@@ -14,8 +14,10 @@
                           <h2>{{$product_api_response['name']}}</h2>
                           @php
                              $price = (float)str_replace(["$"], [""], $product_api_response['price']);
-                              setlocale(LC_MONETARY, 'en_US.UTF-8');
-                             $price = money_format('%.2n', $price);
+                               // setlocale(LC_MONETARY, 'en_US.UTF-8');
+                             //$price = money_format('%.2n', $price);
+
+                             $price = '$' . number_format($price, 2);
                           @endphp
                           <p>From <a href="/sellers/{{$seller->id}}">{{ $seller->name }}</a></p>
                           <p>{{ $price }}</p>

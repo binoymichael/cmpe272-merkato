@@ -36,15 +36,19 @@ class HomeController extends Controller
     public function products(Request $request)
     {
         $client = new \GuzzleHttp\Client();
-        $product_details_data = Product::visited_counts();
+        $seller_id = $request->seller_id;
+        $seller = Seller::find($seller_id);
+        if ($seller == null) {
+          return response()->json(['products' => []]);
+        }
+
+        $product_details_data = Product::visited_counts($seller_id);
         $products = [];
 
-        $seller_ids = explode(",", $request->seller_ids);
-        $current_seller_id = array_shift($seller_ids);
-        $seller = Seller::find($current_seller_id);
-
         $api = $seller->all_products_api;
+
         if (!empty($api)) {
+
             $res = $client->request('GET', $api);
             if ($res->getStatusCode() == 200) {
                 $seller_products = json_decode($res->getBody(), true);
@@ -72,6 +76,6 @@ class HomeController extends Controller
             }
         }
 
-        return response()->json(['seller_ids' => $seller_ids, 'products' => $products]);
+        return response()->json(['products' => $products]);
     }
 }

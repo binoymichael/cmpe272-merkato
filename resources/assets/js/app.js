@@ -75,14 +75,17 @@ function addProduct(product) {
 	$homePanel.append($card);
 }
 
-function getProducts(seller_ids) {
-	$.get('/products?seller_ids=' + seller_ids, function(response) {
+function getProductsFor(seller_id) {
+	$.get('/products?seller_id=' + seller_id, function(response) {
 		products = products.concat(response.products);
 		_.each(response.products, addProduct);
-		if (response.seller_ids.length !== 0) {
-			getProducts(_.join(response.seller_ids, ","));
-		}
 	});
+}
+
+function getProducts(seller_ids) {
+  _.each(seller_ids, function(seller_id) {
+    getProductsFor(seller_id);
+  });
 }
 
 function filterProducts() {
@@ -110,12 +113,11 @@ function filterProducts() {
 	}
 
 	$('#home-panel').html('');
-	console.log(filtered_products);
 	_.each(filtered_products, addProduct);
 }
 
 if ($("#home-panel").length) {
-	var seller_ids = $('#home-panel').data('seller-ids');
+  var seller_ids = _.split($('#home-panel').data('seller-ids'), ',');
 	getProducts(seller_ids);
 	var $searchBox = $('#home-search');
 	$searchBox.keypress(function(event){
