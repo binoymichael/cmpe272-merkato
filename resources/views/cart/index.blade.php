@@ -17,8 +17,9 @@
                               $product_details = json_decode($product->cached_api_response, true);
                               $price = (float)str_replace(["$"], [""], $product_details['price']);
                               $total_price += $price;
-                              setlocale(LC_MONETARY, 'en_US.UTF-8');
-                              $price = money_format('%.2n', $price);
+                               //setlocale(LC_MONETARY, 'en_US.UTF-8');
+                              //$price = money_format('%.2n', $price);
+                              $price ='$' . number_format($price, 2);
                            @endphp
                              <tr>
                                 <td>
@@ -28,7 +29,7 @@
                                 </td>
                                 <td>
                                   <a href="/sellers/{{$product->seller_id}}/products/{{$product->seller_product_id}}">
-                                    <b>{{ (strlen($product_details['name']) <= 18 ? $product_details['name'] : substr($product_details['name'], 0, 18) . " ...") }}</b> 
+                                    <b>{{ (strlen($product_details['name']) <= 18 ? $product_details['name'] : substr($product_details['name'], 0, 18) . " ...") }}</b>
                                   </a>
                                 </td>
                                 <td>
@@ -54,7 +55,7 @@
                     </div>
                     <div class="col-md-4">
                       <h3>Total Price</h3>
-                      <h3>{{ money_format('%.2n', $total_price) }}</h3>
+                      <h3>{{ /*money_format('%.2n', $total_price)*/'$' . number_format($total_price, 2) }}</h3>
                       <form action="/orders/create">
                             <button type="submit" class="btn btn-success">
                               <span class="glyphicon glyphicon-barcode" aria-hidden="true"></span>
