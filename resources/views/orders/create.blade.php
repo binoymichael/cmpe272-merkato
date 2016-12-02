@@ -12,12 +12,13 @@
                       <script
                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-                        data-amount="999"
-                        data-name="Stripe.com"
-                        data-description="Widget"
+                        data-amount={{ $total_price }}
+                        data-name="Merkato"
+                        data-email={{  $user->email }}
+                        data-description="Payment"
                         data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                         data-locale="auto"
-                        data-zip-code="true">
+                      >
                       </script>
                     </form>
                 </div>
