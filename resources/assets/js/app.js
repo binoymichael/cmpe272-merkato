@@ -40,6 +40,17 @@ function addProduct(product) {
 					.html($image);
 	var $card_container = $('<div>', {'class': 'card-container'});
 	var $product_name = product.name.length <= 18 ? product.name : product.name.substring(0, 18) + ' ...';
+
+  var $ratings = $('<div>', {'class': 'rating'});
+  var filled_stars = parseInt(product.avg_rating / 1000);
+  var blank_stars = 5 - filled_stars;
+  while(filled_stars--) {
+    $ratings.append('<span style="color: gold">\u2605</span>');
+  }
+  while(blank_stars--) {
+    $ratings.append('<span style="color: #DCDCDC">\u2606</span>');
+  }
+
 	var $productLink = $('<a>')
 					.attr('href', '/sellers/' + product.seller_id + '/products/' + product.id)
 					.html('<h4><b>' + $product_name + '</b></h4>');
@@ -52,20 +63,12 @@ function addProduct(product) {
 
 	$sellerContainer.append($sellerLink);
 	$card_container.append($productLink);
+  $card_container.append($ratings);
 	$bottomRow.append($priceContainer);
 	$bottomRow.append($sellerContainer);
 	$card_container.append($bottomRow);
 	$card.append($imageLink);
 	$card.append($card_container);
-
-	// Random placement of product tiles
-	// var $list = $("#home-panel .card");
-	// var pos = Math.floor(Math.random() * ($list.length + 1)) - 1;
-	// if(pos != -1){
-	//   $list.eq(pos).after($card);
-	// } else{
-	//   $('#home-panel').append($card);
-	// }
 
 	var $homePanel = $('#home-panel');
 	if ($('#home-spinner').length) {

@@ -5823,4 +5823,13 @@ button.close {
     -webkit-transform: scale(1);
     transform: scale(1); } }
 
+.rating {
+  unicode-bidi: bidi-override; }
+
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.2em;
+  font-size: 1.2em; }
+
 /*# sourceMappingURL=app.css.map */
