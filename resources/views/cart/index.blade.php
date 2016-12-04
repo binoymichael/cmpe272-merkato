@@ -62,6 +62,10 @@
                               Checkout
                             </button>
                       </form>
+                      <br/>
+                      <a href="/home">
+                      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to products
+                      </a>
                     </div>
                 </div>
             </div>
