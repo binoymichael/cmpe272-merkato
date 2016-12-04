@@ -58,7 +58,10 @@
                                     Forgot Your Password?
                                 </a>
 
-                                <a href="redirect">Facebook Login</a>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <a href="redirect"><i class="fa fa-facebook-official fa-2x"></i> Log in with Facebook</a>
                             </div>
                         </div>
                     </form>
