@@ -5832,4 +5832,13 @@ button.close {
   width: 1.2em;
   font-size: 1.2em; }
 
+.label-as-badge {
+  border-radius: 1em; }
+
+.floater {
+  position: relative;
+  left: 5px;
+  top: 10px;
+  float: left; }
+
 /*# sourceMappingURL=app.css.map */
