@@ -9,7 +9,8 @@
 
                 <div class="panel-body">
                     <div class="col-md-8">
-                    <table class="table">
+                    {{ empty($product_ids) ? "Your cart is empty" : ""}}
+                    <table class="table bottomborder">
                       @php $total_price = 0.0; @endphp
                       @foreach ($product_ids as $product_id)
                            @php

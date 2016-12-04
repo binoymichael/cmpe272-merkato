@@ -54,6 +54,14 @@
                             <li><a href="{{ url('/register') }}">Register</a></li>
                         @else
                             <li><a href="{{ url('/recent') }}">Recent</a></li>
+                            <li>
+                                <a href="{{ url('/cart') }}">
+                                  Cart
+                                  <span class="label label-success label-as-badge"> 
+                                    {{ count(json_decode(Auth::user()->cart()['details'], true)) }}
+                                  </span>
+                                </a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>

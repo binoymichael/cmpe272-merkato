@@ -95,3 +95,7 @@
     float: left;
 }
 
+.bottomborder td, .bottomborder th {
+  border: none !important;
+  border-bottom: 1px solid #dddddd;
+}
