@@ -19,15 +19,16 @@
                           @endphp
                           <p>From <a href="/sellers/{{$seller->id}}">{{ $seller->name }}</a></p>
                           <p>{{ $price }}</p>
-                          <p>{{ $quantity }} left in stock</p>
+                          <p class="{{ $quantity > 0 ? '' : 'nostock' }}">{{ $quantity }} left in stock</p>
                           <p>{{ $product_api_response['description'] }}</p>
                           <br/>
+                          @if ($quantity > 0)
                           <form class="form-inline" action="/cart" method="post">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="product_id" value={{$product_detail->product_id}} />
                                 <div class="form-group">
                                   <label>Quantity</label>
-                                  <select name="stars" id="review-stars" class="form-control">
+                                  <select name="quantity" class="form-control">
                                     @for ($i = 1; $i <= $quantity; $i++)
                                       <option>{{$i}}</option>
                                     @endfor
@@ -38,6 +39,7 @@
                                   Add to Cart
                                 </button>
                           </form>
+                          @endif
                       </div>
                   </div> <!-- row -->
                   @if (Auth::check())

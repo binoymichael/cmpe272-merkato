@@ -17,9 +17,8 @@
                               $product = $products[$product_id];
                               $product_details = json_decode($product->cached_api_response, true);
                               $price = (float)str_replace(["$"], [""], $product_details['price']);
-                              $total_price += $price;
-                               //setlocale(LC_MONETARY, 'en_US.UTF-8');
-                              //$price = money_format('%.2n', $price);
+                              $quantity =(int)($cart_items[$product_id]); 
+                              $total_price += $price * $quantity;
                               $price ='$' . number_format($price, 2);
                            @endphp
                              <tr>
@@ -37,7 +36,7 @@
                                   <a href="/sellers/{{ $product->seller_id }}">{{ $product->seller->name }}</a>
                                 </td>
                                 <td>
-                                  <b>{{ $price }}</b>
+                                  <b>{{ $price }} &#x2a2f {{ $quantity }}</b>
                                 </td>
                                 <td>
                                   <form action="/cart" method="post">
