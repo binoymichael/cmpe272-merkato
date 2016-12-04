@@ -21,13 +21,15 @@ class CartController extends Controller
     {
         $user = \Auth::user();
         $cart = $user->cart();
-        $product_ids = json_decode($cart['details'], true);
+        $cart_items = json_decode($cart['details'], true);
+        $product_ids = array_keys($cart_items);
         $products = Product::whereIn('id', $product_ids)->get()->keyBy('id');
 
         //dd($products);
 
         return view('cart.index', ['products' => $products, 
-                                    'product_ids' => $product_ids
+                                    'product_ids' => $product_ids,
+                                    'cart_items' => $cart_items
                                    ]);
     }
 
@@ -35,18 +37,17 @@ class CartController extends Controller
     {
         $user = \Auth::user();
         $product_id = $request->input('product_id');
+        $quantity = $request->input('quantity');
 
         // There will one order with status as 'cart'
         // Once the user checkouts this cart the order status will change to
         // confirmed
         $cart = $user->cart();
-        $product_ids = json_decode($cart['details'], true);
+        $items = json_decode($cart['details'], true);
 
-        if (!in_array($product_id, $product_ids)) {
-          array_push($product_ids, $product_id);
-          $cart->details = json_encode($product_ids);
-          $cart->save();
-        }
+        $items[$product_id] = $quantity;
+        $cart->details = json_encode($items);
+        $cart->save();
 
         return redirect('/cart');
     }
@@ -60,14 +61,10 @@ class CartController extends Controller
         // Once the user checkouts this cart the order status will change to
         // confirmed
         $cart = $user->cart();
-        $product_ids = json_decode($cart['details'], true);
+        $cart_items = json_decode($cart['details'], true);
+        unset($cart_items[$product_id]);
 
-        $index = array_search($product_id, $product_ids);
-        if ( $index !== false ) {
-          unset( $product_ids[$index] );
-        }
-
-        $cart->details = json_encode($product_ids);
+        $cart->details = json_encode($cart_items);
         $cart->save();
 
         return redirect('/cart');

@@ -8,6 +8,9 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+// font-awesome
+@import "node_modules/font-awesome/scss/font-awesome";
+
 
 .card {
 	width: 20%;
@@ -82,4 +85,24 @@
   position: relative;
   width: 1.2em;
   font-size: 1.2em;
+}
+
+.label-as-badge {
+    border-radius: 1em;
+}
+
+.floater {
+    position: relative;
+    left: 5px;
+    top: 10px; 
+    float: left;
+}
+
+.bottomborder td, .bottomborder th {
+  border: none !important;
+  border-bottom: 1px solid #dddddd;
+}
+
+.nostock {
+  color: red;
 }

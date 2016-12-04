@@ -21,7 +21,8 @@ class OrdersController extends Controller
     {
         $user = \Auth::user();
         $cart = $user->cart();
-        $product_ids = json_decode($cart['details'], true);
+        $cart_items = json_decode($cart['details'], true);
+        $product_ids = array_keys($cart_items);
 
         $products = Product::whereIn('id', $product_ids)->get();
         $total_price = $products->reduce(function($total, $product) {

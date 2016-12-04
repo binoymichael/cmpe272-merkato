@@ -14,24 +14,32 @@
                           <h2>{{$product_api_response['name']}}</h2>
                           @php
                              $price = (float)str_replace(["$"], [""], $product_api_response['price']);
-                               // setlocale(LC_MONETARY, 'en_US.UTF-8');
-                             //$price = money_format('%.2n', $price);
-
                              $price = '$' . number_format($price, 2);
+                             $quantity = (int)$product_api_response['quantity'];
                           @endphp
                           <p>From <a href="/sellers/{{$seller->id}}">{{ $seller->name }}</a></p>
                           <p>{{ $price }}</p>
-                          <p>{{ $product_api_response['quantity'] }} left in stock</p>
+                          <p class="{{ $quantity > 0 ? '' : 'nostock' }}">{{ $quantity }} left in stock</p>
                           <p>{{ $product_api_response['description'] }}</p>
                           <br/>
-                          <form action="/cart" method="post">
+                          @if ($quantity > 0)
+                          <form class="form-inline" action="/cart" method="post">
                                 {{ csrf_field() }}
                                 <input type="hidden" name="product_id" value={{$product_detail->product_id}} />
-                                <button type="submit" class="btn btn-success">
+                                <div class="form-group">
+                                  <label>Quantity</label>
+                                  <select name="quantity" class="form-control">
+                                    @for ($i = 1; $i <= $quantity; $i++)
+                                      <option>{{$i}}</option>
+                                    @endfor
+                                  </select>
+                                </div>
+                                <button type="submit" class="btn btn-success" style="margin-left: 10px">
                                   <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
                                   Add to Cart
                                 </button>
                           </form>
+                          @endif
                       </div>
                   </div> <!-- row -->
                   @if (Auth::check())

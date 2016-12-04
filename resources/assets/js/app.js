@@ -31,6 +31,8 @@ function formattedPrice(value) {
 
 function addProduct(product) {
 	var $card = $('<div>', {'class': 'card'});
+  var $floater = $('<span>', {'class': 'floater label label-default label-as-badge'})
+                 .html(product.visited_count);
 	var $image = $('<img>')
 				 .attr('src', urldecode(product.image_url))
 				 .attr('alt', 'product image')
@@ -68,8 +70,8 @@ function addProduct(product) {
 	$bottomRow.append($sellerContainer);
 	$card_container.append($bottomRow);
 	$card.append($imageLink);
+  $card.prepend($floater);
 	$card.append($card_container);
-
 	var $homePanel = $('#home-panel');
 	if ($('#home-spinner').length) {
 		$homePanel.html('');
