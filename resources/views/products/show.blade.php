@@ -67,6 +67,9 @@
                           <div style="margin-left: 20px;">
                           <br/>
                           <p>User reviews</p>
+                          @if (empty($reviews))
+                            No reviews yet
+                          @endif
                           @foreach ($reviews as $k => $v)
                             @php
                               $filled_stars = $v->review_stars;
