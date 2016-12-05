@@ -67,7 +67,7 @@
                           <div style="margin-left: 20px;">
                           <br/>
                           <p>User reviews</p>
-                          @if (empty($reviews))
+                          @if (count($reviews) == 0)
                             No reviews yet
                           @endif
                           @foreach ($reviews as $k => $v)
