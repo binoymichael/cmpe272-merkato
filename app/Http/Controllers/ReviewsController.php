@@ -35,7 +35,17 @@ class ReviewsController extends Controller
 
         $product_api_response = json_decode($product->cached_api_response, true);
 
-		return view('products.show', ['seller' => $seller, 'product_api_response' => $product_api_response, 'product_detail' => $product_detail]);
+        $review_details = [];
+        $reviews = $product->reviews();
+        $review_details['reviews'] = $reviews;
+        $review_details['avg_review'] = floor($reviews->pluck('review_stars')->avg());
+        $review_details['reviews_count'] = count($reviews);
+
+        return view('products.show', ['seller' => $seller,
+          'product_api_response' => $product_api_response,
+          'product_detail' => $product_detail,
+          'review_details' => $review_details
+        ]);
 	}
 }
 

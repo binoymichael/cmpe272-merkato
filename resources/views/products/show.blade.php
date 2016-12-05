@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                   <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-4 col-md-offset-2">
                           <img src="{{ urldecode($product_api_response['image_url']) }}" alt="Avatar" style="width:300px; height: 360; margin:20px;">
                       </div>
                       <div class="col-md-4">
@@ -16,7 +16,27 @@
                              $price = (float)str_replace(["$"], [""], $product_api_response['price']);
                              $price = '$' . number_format($price, 2);
                              $quantity = (int)$product_api_response['quantity'];
+                             $filled_stars = $review_details['avg_review'];
+                             $blank_stars = 5 - $filled_stars;
+                             $r = $review_details['reviews_count'];
+                             $reviews = $review_details['reviews'];
                           @endphp
+                          <div class="rating">
+                            @while ($filled_stars--)
+                              <span style="color: gold"> &#x2605</span> 
+                            @endwhile
+                            @while ($blank_stars--)
+                              <span style="color: #DCDCDC"> &#x2606</span>
+                            @endwhile
+                            @if ($r == 0)
+                              (No reviews yet)
+                            @elseif ($r == 1)
+                              (1 review)
+                            @else
+                              ({{$r . " reviews" }})
+                            @endif
+                          </div>
+                          <br/>
                           <p>From <a href="/sellers/{{$seller->id}}">{{ $seller->name }}</a></p>
                           <p>{{ $price }}</p>
                           <p class="{{ $quantity > 0 ? '' : 'nostock' }}">{{ $quantity }} left in stock</p>
@@ -42,10 +62,38 @@
                           @endif
                       </div>
                   </div> <!-- row -->
-                  @if (Auth::check())
                     <div class="row">
-                        <div class="col-md-4" style="margin:20px;">
-                            Add Review
+                        <div class="col-md-4 col-md-offset-2">
+                          <div style="margin-left: 20px;">
+                          <br/>
+                          <p>User reviews</p>
+                          @foreach ($reviews as $k => $v)
+                            @php
+                              $filled_stars = $v->review_stars;
+                              $blank_stars = 5 - $filled_stars;
+                            @endphp
+                            @if ($k == (int)Auth::id())
+                              @continue
+                            @endif
+                            <div class="rating">
+                              @while ($filled_stars--)
+                                <span style="color: gold"> &#x2605</span> 
+                              @endwhile
+                              @while ($blank_stars--)
+                                <span style="color: #DCDCDC"> &#x2606</span>
+                              @endwhile
+                              By {{ $v->user_name }}
+                            </div>
+                            @unless (empty($v->review_details))
+                              {{ $v->review_details }}
+                            @endunless
+                          @endforeach
+                          </div>
+                        </div>
+                        @if (Auth::check())
+                        <div class="col-md-4">
+                            <br/>
+                            Add your review
                             <form action="/sellers/{{$seller->id}}/products/{{$product_api_response['id']}}/reviews" method="post">
                                   {{ csrf_field() }}
                                   <div class="form-group">
@@ -66,8 +114,8 @@
                                   <button type="submit" class="btn btn-default">Save</button>
                           </form>
                       </div> <!-- col-md-4 -->
+                      @endif
                     </div> <!-- .row -->
-                  @endif
               </div>
             </div>
         </div>

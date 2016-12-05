@@ -41,6 +41,19 @@ class Product extends Model
         return $merged;
     }
 
+    public function reviews() 
+    {
+        $rating_data = \DB::table('products')
+        ->join('product_details', 'products.id', '=', 'product_details.product_id')
+        ->join('users', 'users.id', '=', 'product_details.user_id')
+        ->where('products.id', '=', $this->id)
+        ->where('product_details.review_stars', '!=', 0)
+        ->where('product_details.user_id', '!=', 0)
+        ->select("users.id as user_id", "users.name as user_name", "users.email as user_email", "product_details.review_stars", "product_details.review_details")
+        ->get()->keyBy("user_id");
+        return $rating_data;
+    }
+
     public function product_details()
     {
         return $this->hasMany('App\ProductDetail');
