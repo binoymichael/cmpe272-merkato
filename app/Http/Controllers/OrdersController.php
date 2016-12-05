@@ -59,7 +59,7 @@ class OrdersController extends Controller
       $cart->status = "confirmed";
       $cart->save();
       return redirect()->action(
-          'OrdersController@show', ['id' => $card->id]
+          'OrdersController@show', ['id' => $cart->id]
       );
     }
 
