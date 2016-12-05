@@ -23,7 +23,7 @@
                           @endphp
                           <div class="rating">
                             @while ($filled_stars--)
-                              <span style="color: gold"> &#x2605</span> 
+                              <span style="color: gold"> &#x2605</span>
                             @endwhile
                             @while ($blank_stars--)
                               <span style="color: #DCDCDC"> &#x2606</span>
@@ -77,7 +77,7 @@
                             @endif
                             <div class="rating">
                               @while ($filled_stars--)
-                                <span style="color: gold"> &#x2605</span> 
+                                <span style="color: gold"> &#x2605</span>
                               @endwhile
                               @while ($blank_stars--)
                                 <span style="color: #DCDCDC"> &#x2606</span>
@@ -91,12 +91,34 @@
                           </div>
                         </div>
                         @if (Auth::check())
-                        <div class="col-md-4">
+
+
+                          <script type="text/javascript">
+                               function asd(a)
+                              {
+                                         if(a==1)
+                                         {
+                                 document.getElementById("form").style.display="none";
+                                 document.getElementById("2").style.display="block";
+                                 document.getElementById("1").style.display="none";
+                               }
+                                      else
+                                      {
+                                    document.getElementById("form").style.display="block";
+                                    document.getElementById("1").style.display="block";
+                                    document.getElementById("2").style.display="none";
+                                  }
+                                }
+                            </script>
+
+                        <button id = "1" style="display:none" class="btn btn-default" onclick="asd(1)">Hide Review</button>
+                      <button id = "2" class="btn btn-default" onclick="asd(2)">Add Review</button>
+
+                        <div id = "form" style="display:none" class="col-md-4">
                             <br/>
-                            Add your review
                             <form action="/sellers/{{$seller->id}}/products/{{$product_api_response['id']}}/reviews" method="post">
                                   {{ csrf_field() }}
-                                  <div class="form-group">
+                                  <div  class="form-group">
                                       <label>Rating</label>
                                       <select name="stars" id="review-stars" class="form-control">
                                         <option {{($product_detail->review_stars == 0 ? "selected" : "")}}>-</option>
