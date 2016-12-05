@@ -21,8 +21,10 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/products', 'HomeController@products');
 
-Route::get('/redirect', 'SocialAuthController@redirect');
-Route::get('/callback', 'SocialAuthController@callback');
+Route::get('/{provider}/redirect', 'SocialAuthController@redirect')
+      ->where(['provider' => 'facebook']);
+Route::get('/{provider}/callback', 'SocialAuthController@callback')
+      ->where(['provider' => 'facebook']);
 
 Route::resource('sellers', 'SellersController', ['only' => [
     'index', 'show'
