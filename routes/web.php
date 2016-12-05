@@ -39,7 +39,10 @@ Route::get('/cart', 'CartController@index');
 Route::patch('/cart', 'CartController@update');
 
 Route::get('/orders/create', 'OrdersController@create');
+Route::post('/orders/confirm', 'OrdersController@confirm');
 Route::post('/orders', 'OrdersController@store');
+Route::get('/orders', 'OrdersController@index');
+Route::get('/orders/{order}', 'OrdersController@show');
 
 Route::resource('sellers.products.reviews', 'ReviewsController', ['only' => [
 	'store'

@@ -23,7 +23,7 @@
                           @endphp
                           <div class="rating">
                             @while ($filled_stars--)
-                              <span style="color: gold"> &#x2605</span> 
+                              <span style="color: gold"> &#x2605</span>
                             @endwhile
                             @while ($blank_stars--)
                               <span style="color: #DCDCDC"> &#x2606</span>
@@ -67,6 +67,9 @@
                           <div style="margin-left: 20px;">
                           <br/>
                           <p>User reviews</p>
+                          @if (count($reviews) == 0)
+                            No reviews yet
+                          @endif
                           @foreach ($reviews as $k => $v)
                             @php
                               $filled_stars = $v->review_stars;
@@ -77,7 +80,7 @@
                             @endif
                             <div class="rating">
                               @while ($filled_stars--)
-                                <span style="color: gold"> &#x2605</span> 
+                                <span style="color: gold"> &#x2605</span>
                               @endwhile
                               @while ($blank_stars--)
                                 <span style="color: #DCDCDC"> &#x2606</span>
@@ -91,28 +94,44 @@
                           </div>
                         </div>
                         @if (Auth::check())
+                          <script type="text/javascript">
+                             function toggle(target) {
+                                 if(target === 'review_hide') {
+                                   document.getElementById("review_form").style.display="none";
+                                   document.getElementById("review_show").style.display="block";
+                                   document.getElementById("review_hide").style.display="none";
+                                 } else {
+                                    document.getElementById("review_form").style.display="block";
+                                    document.getElementById("review_hide").style.display="block";
+                                    document.getElementById("review_show").style.display="none";
+                                  }
+                              }
+                            </script>
                         <div class="col-md-4">
-                            <br/>
-                            Add your review
-                            <form action="/sellers/{{$seller->id}}/products/{{$product_api_response['id']}}/reviews" method="post">
-                                  {{ csrf_field() }}
-                                  <div class="form-group">
-                                      <label>Rating</label>
-                                      <select name="stars" id="review-stars" class="form-control">
-                                        <option {{($product_detail->review_stars == 0 ? "selected" : "")}}>-</option>
-                                        <option {{($product_detail->review_stars == 5 ? "selected" : "")}}>5</option>
-                                        <option {{($product_detail->review_stars == 4 ? "selected" : "")}}>4</option>
-                                        <option {{($product_detail->review_stars == 3 ? "selected" : "")}}>3</option>
-                                        <option {{($product_detail->review_stars == 2 ? "selected" : "")}}>2</option>
-                                        <option {{($product_detail->review_stars == 1 ? "selected" : "")}}>1</option>
-                                      </select>
-                                  </div>
-                                  <div class="form-group">
-                                      <textarea name="details" class="form-control" id="review-details" placeholder="Write a review">{{$product_detail->review_details}}
-                                      </textarea>
-                                  </div>
-                                  <button type="submit" class="btn btn-default">Save</button>
-                          </form>
+                          <button id="review_hide" style="display:none" class="btn btn-default" onclick="toggle('review_hide')">Hide Review</button>
+                          <button id="review_show" class="btn btn-default" onclick="toggle('review_show')">Add Review</button>
+                          <div id="review_form" style="display:none">
+                              <br/>
+                              <form action="/sellers/{{$seller->id}}/products/{{$product_api_response['id']}}/reviews" method="post">
+                                    {{ csrf_field() }}
+                                    <div  class="form-group">
+                                        <label>Rating</label>
+                                        <select name="stars" id="review-stars" class="form-control">
+                                          <option {{($product_detail->review_stars == 0 ? "selected" : "")}}>-</option>
+                                          <option {{($product_detail->review_stars == 5 ? "selected" : "")}}>5</option>
+                                          <option {{($product_detail->review_stars == 4 ? "selected" : "")}}>4</option>
+                                          <option {{($product_detail->review_stars == 3 ? "selected" : "")}}>3</option>
+                                          <option {{($product_detail->review_stars == 2 ? "selected" : "")}}>2</option>
+                                          <option {{($product_detail->review_stars == 1 ? "selected" : "")}}>1</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="details" class="form-control" id="review-details" placeholder="Write a review">{{$product_detail->review_details}}
+                                        </textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Save</button>
+                              </form>
+                          </div>
                       </div> <!-- col-md-4 -->
                       @endif
                     </div> <!-- .row -->
