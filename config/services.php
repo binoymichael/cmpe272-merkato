@@ -41,4 +41,10 @@ return [
         'redirect' => 'http://localhost:8000/facebook/callback',
     ],
 
+    'google' => [
+        'client_id' => env('GOOGLE_ID'),
+        'client_secret' => env('GOOGLE_KEY'),
+        'redirect' => 'http://localhost:8000/google/callback',
+    ],
+
 ];

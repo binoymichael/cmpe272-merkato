@@ -22,9 +22,9 @@ Route::get('/home', 'HomeController@index');
 Route::get('/products', 'HomeController@products');
 
 Route::get('/{provider}/redirect', 'SocialAuthController@redirect')
-      ->where(['provider' => 'facebook']);
+      ->where(['provider' => 'facebook|google']);
 Route::get('/{provider}/callback', 'SocialAuthController@callback')
-      ->where(['provider' => 'facebook']);
+      ->where(['provider' => 'facebook|google']);
 
 Route::resource('sellers', 'SellersController', ['only' => [
     'index', 'show'

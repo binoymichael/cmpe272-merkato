@@ -61,7 +61,9 @@
                                 <br/>
                                 <br/>
                                 <br/>
-                                <a href="{{ url('/facebook/redirect') }}"><i class="fa fa-facebook-official fa-2x"></i> Log in with Facebook</a>
+                                <a href="{{ url('/facebook/redirect') }}"><i class="fa fa-facebook-official fa-lg"></i> Log in with Facebook</a>
+                                |
+                                <a href="{{ url('/google/redirect') }}"><i class="fa fa-google-plus-official fa-lg"></i> Log in with Google</a>
                             </div>
                         </div>
                     </form>
