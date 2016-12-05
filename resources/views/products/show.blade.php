@@ -94,50 +94,44 @@
                           </div>
                         </div>
                         @if (Auth::check())
-
-
                           <script type="text/javascript">
-                               function asd(a)
-                              {
-                                         if(a==1)
-                                         {
-                                 document.getElementById("form").style.display="none";
-                                 document.getElementById("2").style.display="block";
-                                 document.getElementById("1").style.display="none";
-                               }
-                                      else
-                                      {
-                                    document.getElementById("form").style.display="block";
-                                    document.getElementById("1").style.display="block";
-                                    document.getElementById("2").style.display="none";
+                             function toggle(target) {
+                                 if(target === 'review_hide') {
+                                   document.getElementById("review_form").style.display="none";
+                                   document.getElementById("review_show").style.display="block";
+                                   document.getElementById("review_hide").style.display="none";
+                                 } else {
+                                    document.getElementById("review_form").style.display="block";
+                                    document.getElementById("review_hide").style.display="block";
+                                    document.getElementById("review_show").style.display="none";
                                   }
-                                }
+                              }
                             </script>
-
-                        <button id = "1" style="display:none" class="btn btn-default" onclick="asd(1)">Hide Review</button>
-                      <button id = "2" class="btn btn-default" onclick="asd(2)">Add Review</button>
-
-                        <div id = "form" style="display:none" class="col-md-4">
-                            <br/>
-                            <form action="/sellers/{{$seller->id}}/products/{{$product_api_response['id']}}/reviews" method="post">
-                                  {{ csrf_field() }}
-                                  <div  class="form-group">
-                                      <label>Rating</label>
-                                      <select name="stars" id="review-stars" class="form-control">
-                                        <option {{($product_detail->review_stars == 0 ? "selected" : "")}}>-</option>
-                                        <option {{($product_detail->review_stars == 5 ? "selected" : "")}}>5</option>
-                                        <option {{($product_detail->review_stars == 4 ? "selected" : "")}}>4</option>
-                                        <option {{($product_detail->review_stars == 3 ? "selected" : "")}}>3</option>
-                                        <option {{($product_detail->review_stars == 2 ? "selected" : "")}}>2</option>
-                                        <option {{($product_detail->review_stars == 1 ? "selected" : "")}}>1</option>
-                                      </select>
-                                  </div>
-                                  <div class="form-group">
-                                      <textarea name="details" class="form-control" id="review-details" placeholder="Write a review">{{$product_detail->review_details}}
-                                      </textarea>
-                                  </div>
-                                  <button type="submit" class="btn btn-default">Save</button>
-                          </form>
+                        <div class="col-md-4">
+                          <button id="review_hide" style="display:none" class="btn btn-default" onclick="toggle('review_hide')">Hide Review</button>
+                          <button id="review_show" class="btn btn-default" onclick="toggle('review_show')">Add Review</button>
+                          <div id="review_form" style="display:none">
+                              <br/>
+                              <form action="/sellers/{{$seller->id}}/products/{{$product_api_response['id']}}/reviews" method="post">
+                                    {{ csrf_field() }}
+                                    <div  class="form-group">
+                                        <label>Rating</label>
+                                        <select name="stars" id="review-stars" class="form-control">
+                                          <option {{($product_detail->review_stars == 0 ? "selected" : "")}}>-</option>
+                                          <option {{($product_detail->review_stars == 5 ? "selected" : "")}}>5</option>
+                                          <option {{($product_detail->review_stars == 4 ? "selected" : "")}}>4</option>
+                                          <option {{($product_detail->review_stars == 3 ? "selected" : "")}}>3</option>
+                                          <option {{($product_detail->review_stars == 2 ? "selected" : "")}}>2</option>
+                                          <option {{($product_detail->review_stars == 1 ? "selected" : "")}}>1</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea name="details" class="form-control" id="review-details" placeholder="Write a review">{{$product_detail->review_details}}
+                                        </textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Save</button>
+                              </form>
+                          </div>
                       </div> <!-- col-md-4 -->
                       @endif
                     </div> <!-- .row -->
