@@ -62,7 +62,7 @@
                           @endif
                       </div>
                   </div> <!-- row -->
-                    <div class="row">
+                    <div class="row" style="margin-top: 10px;">
                         <div class="col-md-4 col-md-offset-2">
                           <div style="margin-left: 20px;">
                           <br/>
@@ -75,9 +75,9 @@
                               $filled_stars = $v->review_stars;
                               $blank_stars = 5 - $filled_stars;
                             @endphp
-                            @if ($k == (int)Auth::id())
-                              @continue
-                            @endif
+                           {{-- @if ($k == (int)Auth::id())
+                             @continue
+                           @endif --}}
                             <div class="rating">
                               @while ($filled_stars--)
                                 <span style="color: gold"> &#x2605</span>
