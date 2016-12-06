@@ -144,3 +144,4 @@ if ($("#home-panel").length) {
 	var $sortBox = $('#home-sort');
 	$sortBox.on('change', filterProducts);
 }
+

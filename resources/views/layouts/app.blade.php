@@ -53,6 +53,8 @@
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
                         @else
+                            <li><a href="{{ url('/graph') }}">Sellers Graph</a></li>
+                            <li><a href="{{ url('/orders') }}">Orders</a></li>
                             <li><a href="{{ url('/recent') }}">Recent</a></li>
                             <li>
                                 <a href="{{ url('/cart') }}">

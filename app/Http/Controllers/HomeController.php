@@ -78,4 +78,9 @@ class HomeController extends Controller
 
         return response()->json(['products' => $products]);
     }
+
+    public function graph() 
+    {
+        return view('home.graph');
+    }
 }
