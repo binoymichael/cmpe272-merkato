@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Order;
+use App\Mailer;
 
 class OrdersController extends Controller
 {
@@ -59,11 +60,14 @@ class OrdersController extends Controller
       $cart->status = "confirmed";
       $cart->save();
 
+
+      Mailer::send_order_confirmation($cart);
       $this->postchild($cart);
 
      return redirect()->action(
          'OrdersController@show', ['id' => $cart->id]
      );
+
     }
 
     public function show(Order $order)
