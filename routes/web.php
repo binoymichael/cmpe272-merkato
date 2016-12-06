@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/products', 'HomeController@products');
+Route::get('/graph', 'HomeController@graph');
 
 Route::get('/{provider}/redirect', 'SocialAuthController@redirect')
       ->where(['provider' => 'facebook|google']);
