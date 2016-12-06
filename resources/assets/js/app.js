@@ -30,13 +30,14 @@ function formattedPrice(value) {
 }
 
 function addProduct(product) {
-	var $card = $('<div>', {'class': 'card'});
+  var $column = $('<div>', {'class': 'col-md-3'});
+  var $card = $('<div>', {'class': 'card'});
   var $floater = $('<span>', {'class': 'floater label label-default label-as-badge'})
                  .html(product.visited_count);
-	var $image = $('<img>')
+	var $image = $('<img>', {'class': 'img-responsive'})
 				 .attr('src', urldecode(product.image_url))
 				 .attr('alt', 'product image')
-				 .attr('style', 'width:200px; height: 270px; margin-left:10px;')
+				 .attr('style', 'width:200px; height: 270px;')
 	var $imageLink = $('<a>')
 					.attr('href', '/sellers/' + product.seller_id + '/products/' + product.id)
 					.html($image);
@@ -77,7 +78,9 @@ function addProduct(product) {
 		$homePanel.html('');
 	}
 
-	$homePanel.append($card);
+
+  $column.append($card);
+	$homePanel.append($column);
 }
 
 function getProductsFor(seller_id) {

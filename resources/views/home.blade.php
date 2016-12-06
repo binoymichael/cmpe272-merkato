@@ -26,12 +26,14 @@
                     </form>
                 </div>
 
-                <div id="home-panel" class="panel-body" data-seller-ids={{$seller_ids}}>
-                    <div id="home-spinner" class="spinner pull-left">
-                      <div class="bounce1"></div>
-                      <div class="bounce2"></div>
-                      <div class="bounce3"></div>
-                    </div>
+                <div class="panel-body">
+                  <div id="home-panel" class="col-md-12" data-seller-ids={{$seller_ids}}>
+                      <div id="home-spinner" class="spinner pull-left">
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                        <div class="bounce3"></div>
+                      </div>
+                  </div>
                 </div>
             </div>
         </div>
