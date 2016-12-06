@@ -14,7 +14,7 @@ class AddColoumnPostProductAPI extends Migration
     public function up()
     {
         Schema::table('sellers', function (Blueprint $table) {
-            $table->string('post_product_api');
+            $table->string('post_product_api')->nullable();
         });
     }
 
