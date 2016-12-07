@@ -83,22 +83,23 @@ $count = 0;
  @foreach ($orderdetails as $key => $value)
 
                     @php
-                $product_details = \DB::table('products')->select("cached_api_response")
-                                    ->where('products.id', '=', $key)->get();
-                $product_details = json_decode($product_details);
-               $product_details = (array) json_encode($product_details[0]);
-               $product_details =(array) json_decode($product_details[0]);
-                  $product_details = (array) json_decode($product_details['cached_api_response']);
-                      $totalprice = $product_details['price']*$value;
+                      $product_details = \DB::table('products')->select("cached_api_response")
+                                              ->where('products.id', '=', $key)->get();
+                      $product_details = json_decode($product_details);
+                      $product_details = (array) json_encode($product_details[0]);
+                      $product_details =(array) json_decode($product_details[0]);
+                      $product_details = (array) json_decode($product_details['cached_api_response']);
+                      $price = (float)str_replace(["$"], [""], $product_details['price']);
+                      $totalprice = $price * $value;
                       $count = $count+$totalprice;
                     @endphp
 
 
                           <tr>
                                   <td> {{ $product_details['name']}} </td>
-                                   <td class="text-center">${{ $product_details['price']}}</td>
+                                   <td class="text-center">${{ number_format($price, 2) }}</td>
                                    <td class="text-center">{{$value}}</td>
-                                <td class="text-right">${{$totalprice}}</td>
+                                <td class="text-right">${{ number_format($totalprice, 2) }}</td>
                                 </tr>
 
                             @endforeach
@@ -106,7 +107,7 @@ $count = 0;
                                     <td class="highrow"><i class="fa fa-barcode iconbig"></i></td>
                                     <td class="highrow"></td>
                                     <td class="highrow text-center"><strong>Total</strong></td>
-                                    <td class="highrow text-right">$<?php $grandtotal = $count;print_r($grandtotal); ?></td>
+                                    <td class="highrow text-right">${{ number_format($count, 2) }}</td>
                                 </tr>
                             </tbody>
                         </table>
