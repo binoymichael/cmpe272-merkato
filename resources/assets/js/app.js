@@ -32,8 +32,10 @@ function formattedPrice(value) {
 function addProduct(product) {
   var $column = $('<div>', {'class': 'col-md-3'});
   var $card = $('<div>', {'class': 'card'});
-  var $floater = $('<span>', {'class': 'floater label label-default label-as-badge'})
+  var $floater = $('<span>', {'class': 'floater label label-success label-as-badge', 'style': 'font-size: 0.9em;'})
                  .html(product.visited_count);
+  var $floater2 = $('<span>', {'class': 'floater label label-primary label-as-badge', 'style': 'margin-left: 2px;'})
+                 .html(product.external_visits);
 	var $image = $('<img>', {'class': 'img-responsive'})
 				 .attr('src', urldecode(product.image_url))
 				 .attr('alt', 'product image')
@@ -71,6 +73,7 @@ function addProduct(product) {
 	$bottomRow.append($sellerContainer);
 	$card_container.append($bottomRow);
 	$card.append($imageLink);
+  $card.prepend($floater2);
   $card.prepend($floater);
 	$card.append($card_container);
 	var $homePanel = $('#home-panel');
@@ -117,6 +120,8 @@ function filterProducts() {
 			filtered_products = _.reverse(_.sortBy(filtered_products, "avg_rating"));
     } else if (sortOption == "popularity") {
 			filtered_products = _.reverse(_.sortBy(filtered_products, "visited_count"));
+    } else if (sortOption == "popularitySeller") {
+			filtered_products = _.reverse(_.sortBy(filtered_products, "external_visits"));
     }
 	}
 

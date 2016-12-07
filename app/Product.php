@@ -19,7 +19,8 @@ class Product extends Model
         ->join('product_details', 'products.id', '=', 'product_details.product_id')
         ->where('products.seller_id', '=', $seller_id)
         ->select(\DB::raw("CONCAT(products.seller_id,':', products.seller_product_id) as seller_full_product_id,
-                           SUM(product_details.visited_count) as visited_count
+                           SUM(product_details.visited_count) as visited_count,
+                           SUM(product_details.external_visits) as external_visits
                          "))
         ->groupBy('products.seller_id', 'products.seller_product_id')
         ->get();
