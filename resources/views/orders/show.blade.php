@@ -1,13 +1,10 @@
 <?php
-$details = (array) json_decode(json_encode($order));
 $name = Auth::user()->name;
-$address =(array) json_decode($details['address_details']);
-$shipping = (array) json_decode(json_encode($address['shipping']));
-$billing = (array) json_decode(json_encode($address['billing']));
-$orderdetails =(array) json_decode($details['details']);
-
+$address = json_decode($order['address_details'], true);
+$shipping = $address['shipping'];
+$billing = $address['billing'];
+$orderdetails = json_decode($order['details'], true);
 $count = 0;
-
 ?>
 
 
@@ -24,11 +21,9 @@ $count = 0;
                        <div class="container">
     <div class="row">
         <div class="col-xs-12">
-        <h1>Thanks  <?php print_r($name); ?> For Placing Your Order</h1>
-        <br>
             <div class="text-center">
-              <h2>Your order has been confirmed! </h2>
-               <h3> Order Id -<?php print_r(strtoupper($details['uuid'])); ?> </h3>
+              <h2>Your order has been confirmed and is being processed! </h2>
+               <h3> Order Id -<?php print_r(strtoupper($order['uuid'])); ?> </h3>
             </div>
             <hr>
             <div class="row">
@@ -107,26 +102,11 @@ $count = 0;
                                 </tr>
 
                             @endforeach
-
-
-
                                 <tr>
+                                    <td class="highrow"><i class="fa fa-barcode iconbig"></i></td>
                                     <td class="highrow"></td>
-                                    <td class="highrow"></td>
-                                    <td class="highrow text-center"><strong>Subtotal</strong></td>
-                                    <td class="highrow text-right">$<?php print_r($count); ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow text-center"><strong>Shipping</strong></td>
-                                    <td class="emptyrow text-right">$20</td>
-                                </tr>
-                                <tr>
-                                    <td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
-                                    <td class="emptyrow"></td>
-                                    <td class="emptyrow text-center"><strong>Total</strong></td>
-                                    <td class="emptyrow text-right">$<?php $grandtotal = $count+20;print_r($grandtotal); ?></td>
+                                    <td class="highrow text-center"><strong>Total</strong></td>
+                                    <td class="highrow text-right">$<?php $grandtotal = $count;print_r($grandtotal); ?></td>
                                 </tr>
                             </tbody>
                         </table>
