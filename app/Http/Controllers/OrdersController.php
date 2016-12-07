@@ -138,7 +138,7 @@ class OrdersController extends Controller
               foreach ($seller_order as $key => $value)
                   {
                     $value = json_encode($value);
-
+                      //dd($value);
                 $client = new \GuzzleHttp\Client(['headers' =>['Content-Type' => 'application/json']]);
 
                      try

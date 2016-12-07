@@ -1,5 +1,5 @@
 function getData(){
-    var Data = 
+    var Data =
             {
                 "name" : "Merkato",
                 "link" : "http://merkato.herokuapp.com/",
@@ -137,8 +137,40 @@ function getData(){
                                                                             "link" : "http://www.independent.co.uk/extras/indybest/food-drink/the-50-best-food-websites-8665600.html"
                                                                         }
                                                                     ]
+                                                    },
+                                                    {
+                                                        "name": "Clothing",
+                                                        "link": "http://www.gargoos.com/",
+                                                        "color" : "orange",
+                                                        "children" : [
+                                                                        {
+                                                                            "name" : "Gargoos-Login",
+                                                                            "color" : "#922E00",
+                                                                            "link" : "http://www.gargoos.com/Login.php"
+                                                                        },
+                                                                        {
+                                                                            "name" : "Gargoos-About",
+                                                                            "color" : "#922E00",
+                                                                            "link" : "http://www.gargoos.com/About.php"
+                                                                        },
+                                                                        {
+                                                                            "name" : "Gargoos-Products",
+                                                                            "color" : "#922E00",
+                                                                            "link" : "http://www.gargoos.com/product.php"
+                                                                        },
+                                                                        {
+                                                                            "name" : "Gargoos-Contacts",
+                                                                            "color" : "#922E00",
+                                                                            "link" : "http://www.gargoos.com/Contacts.php"
+                                                                        },
+                                                                        {
+                                                                            "name" : "Gargoos-News",
+                                                                            "color" : "#922E00",
+                                                                            "link" : "http://www.gargoos.com/News.php"
+                                                                        }
+                                                                    ]
                                                     }
-                                                ]                                    
+                                                ]
                                 },
                                 {
                                     "name" : "Login",
@@ -150,7 +182,7 @@ function getData(){
                                     "color" : "#a7af00",
                                     "link" : "http://merkato.herokuapp.com/register"
                                 }
-                ]                
+                ]
             };
 
             return Data;
