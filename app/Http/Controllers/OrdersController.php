@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Mail;
 use App\Product;
 use App\Order;
 use App\Mailer;
@@ -60,8 +61,11 @@ class OrdersController extends Controller
     $cart->status = "confirmed";
     $cart->save();
 
+    Mail::send('emails.order', ['user' => $user, 'order' => $cart], function ($m) use ($user) {
+        $m->from('support@mail.slashbin.in', 'Merkato');
+        $m->to($user->email, $user->name)->subject('Merkato Order Confirmation');
+    });
 
-    Mailer::send_order_confirmation($cart);
     $this->postchild($cart);
 
     return redirect()->action(
@@ -82,6 +86,7 @@ class OrdersController extends Controller
   public function index()
   {
     $orders = \Auth::user()->orders()->where('status', '!=', 'cart')->get();
+
     return view('orders.index', ['orders' => $orders]);
   }
 
