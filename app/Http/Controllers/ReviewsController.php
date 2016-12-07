@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Seller;
 use App\Product;
 use App\ProductDetail;
@@ -17,7 +18,6 @@ class ReviewsController extends Controller
 
 	public function store(Request $request, Seller $seller, $seller_product_id) 
 	{
-
         $user_id = \Auth::id();
 
         $product = Product::where([
