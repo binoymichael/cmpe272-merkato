@@ -48,9 +48,6 @@ Route::get('/orders', 'OrdersController@index');
 Route::get('/orders/{order}', 'OrdersController@show');
 
 Route::resource('sellers.products.track', 'TrackingController', ['only' => ['store']]);
-Route::post('/tracking/track', 'TrackingController@track');
-
-Route::get('/tracking/track', 'TrackingController@track');
 
 Route::resource('sellers.products.reviews', 'ReviewsController', ['only' => [
 	'store'

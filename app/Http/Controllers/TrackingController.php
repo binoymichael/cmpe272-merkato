@@ -12,8 +12,6 @@ use Carbon\Carbon;
 
 class TrackingController extends Controller
 {
-    //
-
     public function __construct()
     {
 
@@ -33,8 +31,7 @@ class TrackingController extends Controller
                 'user_id' => 0,
                 'product_id' => $product->id
             ]);
-            $product_detail->visited_count = $product_detail->visited_count + 1;
-            $product_detail->last_visited_at = Carbon::now();
+            $product_detail->external_visits = $product_detail->external_visits + 1;
             $product_detail->save();
         }
     }
