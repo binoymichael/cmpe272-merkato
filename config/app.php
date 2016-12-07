@@ -181,6 +181,9 @@ return [
         // Socialite
         Laravel\Socialite\SocialiteServiceProvider::class,
 
+        // Passport
+        Laravel\Passport\PassportServiceProvider::class,
+
     ],
 
     /*
