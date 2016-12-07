@@ -58,9 +58,11 @@ class HomeController extends Controller
                     $seller_full_product_id = $seller->id . ":" . $value['id'];
                     $product_details = collect($product_details_data)->get($seller_full_product_id, null);
                     $visited_count = 0;
+                    $external_visits = 0;
                     $avg_review_stars = 0;
                     if ($product_details != null) {
                         $visited_count = (int)(collect($product_details)->get('visited_count', 0));
+                        $external_visits = (int)(collect($product_details)->get('external_visits', 0));
                         $avg_review_stars = floor((int)(collect($product_details)->get('avg_review_stars', 0) * 1000));
                     }
 
@@ -68,6 +70,7 @@ class HomeController extends Controller
                                                       'seller_name' => $seller->name,
                                                       'price' => $price, 
                                                       'visited_count' => $visited_count,
+                                                      'external_visits' => $external_visits,
                                                       'avg_rating' => $avg_review_stars,
                                                     ]);
 

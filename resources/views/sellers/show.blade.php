@@ -21,7 +21,8 @@
                               <option value="priceAsc">Price (Low to High)</option>
                               <option value="priceDesc">Price (High to Low)</option>
                               <option value="rating">Avg Ratings</option>
-                              <option value="popularity">Popularity</option>
+                              <option value="popularity">Popularity (on Merkato)</option>
+                              <option value="popularitySeller">Popularity (on Seller Website)</option>
                             </select>
                         </div>
                     </form>
