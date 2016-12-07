@@ -33,8 +33,14 @@ function addProduct(product) {
   var $column = $('<div>', {'class': 'col-md-3'});
   var $card = $('<div>', {'class': 'card'});
   var $floater = $('<span>', {'class': 'floater label label-success label-as-badge', 'style': 'font-size: 0.9em;'})
+                 .attr('data-toggle', 'tooltip')
+                 .attr('data-placement', 'top')
+                 .attr('title', '# of times visited on Merkato')
                  .html(product.visited_count);
   var $floater2 = $('<span>', {'class': 'floater label label-primary label-as-badge', 'style': 'margin-left: 2px;'})
+                 .attr('data-toggle', 'tooltip')
+                 .attr('data-placement', 'top')
+                 .attr('title', '# of times visited on ' +  product.seller_name + ' (seller website)')
                  .html(product.external_visits);
 	var $image = $('<img>', {'class': 'img-responsive'})
 				 .attr('src', urldecode(product.image_url))
@@ -84,6 +90,7 @@ function addProduct(product) {
 
   $column.append($card);
 	$homePanel.append($column);
+  $('[data-toggle="tooltip"]').tooltip();
 }
 
 function getProductsFor(seller_id) {
@@ -148,5 +155,6 @@ if ($("#home-panel").length) {
 
 	var $sortBox = $('#home-sort');
 	$sortBox.on('change', filterProducts);
+
 }
 
