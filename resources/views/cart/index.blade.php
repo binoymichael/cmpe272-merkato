@@ -17,7 +17,7 @@
                               $product = $products[$product_id];
                               $product_details = json_decode($product->cached_api_response, true);
                               $price = (float)str_replace(["$"], [""], $product_details['price']);
-                              $quantity =(int)($cart_items[$product_id]); 
+                              $quantity =(int)($cart_items[$product_id]);
                               $total_price += $price * $quantity;
                               $price ='$' . number_format($price, 2);
                            @endphp

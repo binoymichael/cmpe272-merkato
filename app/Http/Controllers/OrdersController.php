@@ -61,9 +61,9 @@ class OrdersController extends Controller
     $cart->status = "confirmed";
     $cart->save();
 
-    Mail::send('emails.order', ['user' => $user, 'order' => $cart], function ($m) use ($user) {
-        $m->from('support@mail.slashbin.in', 'Merkato');
-        $m->to($user->email, $user->name)->subject('Merkato Order Confirmation');
+  Mail::send('emails.order', ['user' => $user, 'order' => $cart], function ($m) use ($user) {
+      $m->from('support@mail.slashbin.in', 'Merkato');
+       $m->to($user->email, $user->name)->subject('Merkato Order Confirmation');
     });
 
     $this->postchild($cart);
