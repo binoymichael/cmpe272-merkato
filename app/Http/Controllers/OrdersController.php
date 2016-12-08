@@ -95,12 +95,13 @@ class OrdersController extends Controller
     $items = json_decode($cart['details'], true);
 
     $seller_order = array();
+    $seller_secrets = array();
     foreach ($items as $key => $value) {
 
       $seller_details = \DB::table('products')
         ->join('sellers', 'products.seller_id', '=', 'sellers.id')
         ->where('products.id', '=', $key)
-        ->select("products.seller_product_id as seller_product_id", "sellers.post_product_api as post_product_api")
+        ->select("products.seller_product_id as seller_product_id", "sellers.post_product_api as post_product_api", "sellers.secret as secret")
         ->get();
 
       $seller_array = json_decode(json_encode($seller_details),true);
@@ -124,6 +125,7 @@ class OrdersController extends Controller
       {
         $seller_order[$seller_api] = $product_quantity;
       }
+      $seller_secrets[$seller_api] = $temp['secret'];
 
       // $seller_order[$seller_api][] = $product_quantity;
 
@@ -131,19 +133,27 @@ class OrdersController extends Controller
 
     }
 
-    $this->callsellerpostapi($seller_order);
+    $this->callsellerpostapi($seller_order, $seller_secrets);
 
   }
 
 
-  private function callsellerpostapi(&$seller_order)
+  private function callsellerpostapi(&$seller_order, &$seller_secrets)
   {
 
     foreach ($seller_order as $key => $value)
     {
       $value = json_encode($value);
       //dd($value);
-      $client = new \GuzzleHttp\Client(['headers' =>['Content-Type' => 'application/json']]);
+      $nonce = bin2hex(random_bytes(5));
+      $secret = $seller_secrets[$key];
+      $signature = "POST+" . $nonce . "+" . $value;
+      $digest = rawurlencode(base64_encode(hash_hmac('sha256', $signature, $secret, true)));
+      $client = new \GuzzleHttp\Client(['headers' =>[
+          'Content-Type' => 'application/json',
+          'Authorization' => $digest,
+          'nonce' => $nonce
+      ]]);
 
       try
       {
