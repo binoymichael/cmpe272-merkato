@@ -50,7 +50,7 @@ class HomeController extends Controller
 
         if (!empty($api)) {
 
-            $res = $client->request('GET', $api);
+            $res = $client->request('GET', $api, ['connect_timeout' => 5, 'timeout' => 5]);
             if ($res->getStatusCode() == 200) {
                 $seller_products = json_decode($res->getBody(), true);
                 foreach($seller_products as $key => $value) {
