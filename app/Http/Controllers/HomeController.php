@@ -26,9 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $sellers = Seller::all();
+        $sellers = Seller::where('id', '!=', 4)->get();
         $seller_ids = array_pluck($sellers, 'id');
         shuffle($seller_ids);
+        array_push($seller_ids, 4);
         $seller_ids = implode(",", $seller_ids);
         return view('home', ['seller_ids' => $seller_ids]);
     }
