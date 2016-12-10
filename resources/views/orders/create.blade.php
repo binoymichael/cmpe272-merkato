@@ -21,15 +21,15 @@
                         </div>
                         <div class="form-group">
                             <label>City</label>
-                            <input type="text" class="form-control" name="shipping[city]" required>
+                            <input type="text" class="form-control" name="shipping[city]" >
                         </div>
                         <div class="form-group">
                             <label>State</label>
-                            <input type="text" class="form-control" name="shipping[state]" required>
+                            <input type="text" class="form-control" name="shipping[state]" >
                         </div>
                         <div class="form-group">
                             <label>Zipcode</label>
-                            <input type="number" class="form-control" name="shipping[zipcode]" required>
+                            <input type="number" class="form-control" name="shipping[zipcode]" >
                         </div>
                       </div>
                       <div class="col-md-3 col-md-offset-1">
@@ -44,15 +44,15 @@
                         </div>
                         <div class="form-group">
                             <label>City</label>
-                            <input type="text" class="form-control" name="billing[city]" required>
+                            <input type="text" class="form-control" name="billing[city]" >
                         </div>
                         <div class="form-group">
                             <label>State</label>
-                            <input type="text" class="form-control" name="billing[state]" required>
+                            <input type="text" class="form-control" name="billing[state]" >
                         </div>
                         <div class="form-group">
                             <label>Zipcode</label>
-                            <input type="number" class="form-control" name="billing[zipcode]" required>
+                            <input type="number" class="form-control" name="billing[zipcode]" >
                         </div>
                       </div>
                       <div class="col-md-2 col-md-offset-1">
